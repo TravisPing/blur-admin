@@ -16,36 +16,12 @@
 
 
 
+
   /** @ngInject */
   function TablesPageCtrl($scope, $filter, editableOptions, editableThemes) {
-    function onTimerTick() {
-      $.getJSON( "https://api.fixer.io/latest?base=USD", function(data  ) {
-        list=[];
-        count=0;
-  
-        console.log('json: ',data.rates);
-         
-        for (var x in data.rates){
-  
-          var a = {
-            'id':++count,
-            'key':x,
-            'value':data.rates[x],
-            'valuePlus10':(data.rates[x]+10.0002).toFixed(4),
-            'even':(((data.rates[x]+10.0002).toFixed(4))*10000).toFixed(0)%2 == 0
-  
-          }
-          list.push(a);
-        }
-        $scope.smartTableData =list; 
-        console.log('arr: ',$scope.smartTableData);
-  
-  
-      });
-    }
 
     
-
+    $scope.smartTableData=window.smartTableData;
     $.getJSON( "https://api.fixer.io/latest?base=USD", function(data  ) {
 
       console.log('json: ',data.rates);
@@ -282,12 +258,39 @@
       $scope.users.push($scope.inserted);
     };
 
+    $scope.onTimerTick = function() {
+      $.getJSON( "https://api.fixer.io/latest?base=USD", function(data  ) {
+        list=[];
+        count=0;
+  
+        console.log('json: ',data.rates);
+         
+        for (var x in data.rates){
+  
+          var a = {
+            'id':++count,
+            'key':x,
+            'value':data.rates[x],
+            'valuePlus10':(data.rates[x]+10.0002).toFixed(4),
+            'even':(((data.rates[x]+10.0002).toFixed(4))*10000).toFixed(0)%2 == 0
+  
+          }
+          list.push(a);
+        }
+        window['smartTableData']=$scope.smartTableData;
+        $scope.smartTableData =list; 
+        console.log('arr: ',$scope.smartTableData);
+  
+        
+      });
+    }
+
     editableOptions.theme = 'bs3';
     editableThemes['bs3'].submitTpl = '<button type="submit" class="btn btn-primary btn-with-icon"><i class="ion-checkmark-round"></i></button>';
     editableThemes['bs3'].cancelTpl = '<button type="button" ng-click="$form.$cancel()" class="btn btn-default btn-with-icon"><i class="ion-close-round"></i></button>';
 
-    setInterval(onTimerTick, 330); // 33 milliseconds = ~ 30 frames per sec
-
+   
+    setInterval($scope.onTimerTick(), 3300); // 33 milliseconds = ~ 30 frames per sec
 
   }
 

@@ -42,7 +42,7 @@
         console.log(dif);
 
 
-
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var pieColor = baUtil.hexToRGB(baConfig.colors.defaultText, 0.2);
     $scope.charts = [{
       color: pieColor,
@@ -52,7 +52,7 @@
     }, {
       color: pieColor,
       description: 'Date' ,
-      stats: data["date"].parse("March 21"),
+      stats: new Date(data["date"]).getUTCDate()+' '+months[new Date(data["date"]).getUTCMonth()],
       icon: '',
     }, {
       color: pieColor,
@@ -62,7 +62,7 @@
     }, {
       color: pieColor,
       description: 'Latency',
-      stats: dif ,
+      stats: dif + 'ms' ,
       icon: 'refresh',
     }
     ];

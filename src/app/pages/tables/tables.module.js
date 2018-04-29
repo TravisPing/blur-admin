@@ -24,7 +24,7 @@
         }).state('tables.smart', {
           url: '/smart',
           templateUrl: 'app/pages/tables/smart/tables.html',
-          title: 'Smart Tables',
+          title: 'Forex Rates Table',
           sidebarMeta: {
             order: 100,
           },
