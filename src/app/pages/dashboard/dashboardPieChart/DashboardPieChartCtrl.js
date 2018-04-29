@@ -80,11 +80,65 @@
     }, 1000);    
 
 
-    $.getJSON( "https://api.fixer.io/latest?base=USD", function(data  ) {
+  //   $.getJSON( "https://api.fixer.io/latest?base=USD", function(data  ) {
 
 
-      console.log('json: ',data.rates);
+  //     console.log('json: ',data.rates);
        
+  //     for (var x in data.rates){
+
+  //       var a = {
+  //         'id':++count,
+  //         'key':x,
+  //         'value':data.rates[x],
+  //         'valuePlus10':(data.rates[x]+10.0002).toFixed(4),
+  //         'even':(((data.rates[x]+10.0002).toFixed(4))*10000).toFixed(0)%2 == 0
+
+  //       }
+  //       list.push(a);
+  //     }
+  //     $scope.smartTableData =list; 
+  //     console.log('arr: ',$scope.smartTableData);
+
+  //       dif =   new Date()-current;
+
+  //       console.log(dif);
+
+
+  //   var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  //   var pieColor = baUtil.hexToRGB(baConfig.colors.defaultText, 0.2);
+  //   $scope.charts = [{
+  //     color: pieColor,
+  //     description: 'API status',
+  //     stats: '200',
+  //     icon: 'person',
+  //   }, {
+  //     color: pieColor,
+  //     description: 'Date' ,
+  //     stats: new Date(data["date"]).getUTCDate()+' '+months[new Date(data["date"]).getUTCMonth()],
+  //     icon: '',
+  //   }, {
+  //     color: pieColor,
+  //     description: 'Data size',
+  //     stats: list.length,
+  //     icon: 'face',
+  //   }, {
+  //     color: pieColor,
+  //     description: 'Latency',
+  //     stats: dif + 'ms' ,
+  //     icon: 'refresh',
+  //   }
+  //   ];
+  //   //updatePieCharts();
+  // });
+
+
+  $.ajax({
+    url: "https://api.fixer.io/latest?base=USD",
+    async: false,
+    success: function(data){
+      console.log('json: ',data.rates);
+   
       for (var x in data.rates){
 
         var a = {
@@ -99,7 +153,8 @@
       }
       $scope.smartTableData =list; 
       console.log('arr: ',$scope.smartTableData);
-
+    
+    
         dif =   new Date()-current;
 
         console.log(dif);
@@ -129,11 +184,9 @@
       icon: 'refresh',
     }
     ];
-    //updatePieCharts();
-  });
-
-
-  
+    updatePieCharts();
+  }
+});
 
   }
 })();
